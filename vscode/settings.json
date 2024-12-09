@@ -1,0 +1,8 @@
+{
+    "workbench.iconTheme": "icons",
+    "workbench.colorTheme": "Default High Contrast",
+    "git.openRepositoryInParentFolders": "always",
+    "workbench.editorAssociations": {
+        "*.jar": "default"
+    }
+}
