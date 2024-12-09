@@ -1,3 +1,5 @@
 [user]
 	name = juanb
 	email = juancruzberrios73@gmail.com
+[http]
+	postBuffer = 157286400
