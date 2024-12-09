@@ -6,12 +6,6 @@ if [ "$(id -u)" -ne "0" ]; then
     exit 1
 fi
 
-# Ensure .dotfiles directory exists
-if [ ! -d ~/.dotfiles ]; then
-    echo "~/.dotfiles directory does not exist!"
-    exit 1
-fi
-
 # Update package list
 echo "Updating packages..."
 apt update -y
@@ -26,13 +20,12 @@ apt install -y openjdk-17-jdk
 
 # Install PostgreSQL
 echo "Installing PostgreSQL..."
-apt install -y postgresql postgresql-contrib
+apt install postgresql
 
 # Install NVM
 echo "Installing NVM..."
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+source ~/.bashrc
 
 # Install Node.js
 echo "Installing Node.js..."
@@ -48,7 +41,7 @@ fi
 
 # Install i3 utilities
 echo "Installing i3 utilities..."
-apt install -y i3lock i3status dmenu
+apt install i3-wm
 
 # Install Visual Studio Code if not already installed
 if ! command -v code &> /dev/null; then
@@ -64,14 +57,13 @@ fi
 
 # Set up PostgreSQL
 echo "Setting up PostgreSQL..."
-sudo -u postgres psql -c "DO \$(echo \"SELECT 1 FROM pg_roles WHERE rolname='jcadmin' LIMIT 1\") IS NULL DO CREATE USER jcadmin WITH PASSWORD 'admin';"
-sudo -u postgres psql -c "DO \$(echo \"SELECT 1 FROM pg_database WHERE datname='mydb' LIMIT 1\") IS NULL DO CREATE DATABASE mydb;"
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE mydb TO jcadmin"
+sudo postgres psql "CREATE USER jcadmin WITH PASSWORD 'admin';"
+sudo postgres psql "CREATE DATABASE mydb;"
+sudo postgres psql "GRANT ALL PRIVILEGES ON DATABASE mydb TO jcadmin"
 
 # Setting up VSCode dotfiles
 echo "Setting up VSCode dotfiles..."
 ln -sf ~/.dotfiles/.vscode/settings.json ~/.config/Code/User/settings.json
-ln -sf ~/.dotfiles/.vscode/keybindings.json ~/.config/Code/User/keybindings.json
 
 # Install VSCode extensions if extensions.json exists
 if [ -f ~/.dotfiles/.vscode/extensions/extensions.json ]; then
@@ -85,12 +77,6 @@ fi
 
 # Setting up dotfiles
 echo "Setting up dotfiles..."
-if [ -f ~/.dotfiles/.gitconfig ]; then
-    ln -sf ~/.dotfiles/.gitconfig ~/.gitconfig
-else
-    echo ".gitconfig not found in ~/.dotfiles."
-fi
-if [ -f ~/.dotfiles/.config/i3/config ]; then
-    ln -sf ~/.dotfiles/.config/i3/config ~/.config/i3/config
-else
-    echo "i3 config not f
+ln -sf ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/.dotfiles/.config/i3/config ~/.config/i3/config
+
