@@ -54,7 +54,7 @@ floating_modifier Mod1
 exec --no-startup-id setxkbmap latam
 
 # Hotkey to toggle between English (US) and Latin American (Latam)
-bindsym Mod4+Control+l exec --no-startup-id ~./dotfiles/scripts/toggle_layout.sh
+bindsym Mod4+Control+l exec --no-startup-id /home/juanc/.dotfiles/scripts/toggle_layout.sh
 
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
