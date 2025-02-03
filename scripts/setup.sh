@@ -24,12 +24,11 @@ apt install postgresql
 
 # Install NVM
 echo "Installing NVM..."
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-source ~/.bashrc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
 # Install Node.js
 echo "Installing Node.js..."
-nvm install node
+nvm install --lts
 
 # Install Postman if not already installed
 if ! snap list | grep -q postman; then
@@ -44,15 +43,6 @@ echo "Installing i3 utilities..."
 apt install i3-wm
 
 # Install Visual Studio Code if not already installed
-if ! command -v code &> /dev/null; then
-    echo "Installing Visual Studio Code..."
-    sudo snap install --classic code
-    if ! command -v code &> /dev/null; then
-        echo "VS Code installation failed."
-        exit 1
-    fi
-else
-    echo "VS Code already installed."
-fi
+snap install --classic code
 
 exit

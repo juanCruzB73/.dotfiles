@@ -1,21 +1,16 @@
 #!/bin/bash
 
-
 # Setting up VSCode dotfiles
 echo "Setting up VSCode dotfiles..."
-ln -sf ~/.dotfiles/.vscode/settings.json ~/.config/Code/User/settings.json
-
-# Install VSCode extensions if extensions.json exists
-if [ -f ~/.dotfiles/.vscode/extensions/extensions.json ]; then
-    echo "Installing VSCode extensions..."
-    while IFS= read -r extension; do
-        code --install-extension "$extension"
-    done < ~/.dotfiles/.vscode/extensions/extensions.json
-else
-    echo "No extensions.json found. Skipping extension installation."
-fi
+ln -sf ~/.dotfiles/.vscode/settings.json ~/.config/Code/User/settings.json#
 
 # Setting up dotfiles
 echo "Setting up dotfiles..."
+
+echo "Setting up gitconfig"
 ln -sf ~/.dotfiles/.gitconfig ~/.gitconfig
+echo "Setting up i3"
 ln -sf ~/.dotfiles/.config/i3/config ~/.config/i3/config
+echo "Setting up .bashrc"
+ln -sf ~/.dotfiles/.bashrc ~/.bashrc
+
