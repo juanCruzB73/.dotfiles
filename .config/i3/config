@@ -61,7 +61,7 @@ bindsym Mod4+Control+l exec --no-startup-id /home/juanc/.dotfiles/scripts/toggle
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym Mod4+Return exec i3-sensible-terminal
+bindsym Mod4+Return exec alacritty
 
 # kill focused window
 bindsym Mod4+Shift+q kill

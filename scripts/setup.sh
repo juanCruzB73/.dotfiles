@@ -12,7 +12,10 @@ apt update -y
 
 # Install common dependencies
 echo "Installing common packages..."
-apt install -y curl wget git unzip build-essential
+apt install -y snapd curl wget git unzip build-essential
+
+#lightdm
+apt install lightdm
 
 # Install OpenJDK
 echo "Installing JDK..."
@@ -22,6 +25,9 @@ apt install -y openjdk-17-jdk
 echo "Installing PostgreSQL..."
 apt install postgresql
 
+systemctl enable postgresql
+systemctl start postgresql
+
 # Install NVM
 echo "Installing NVM..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
@@ -30,13 +36,10 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 echo "Installing Node.js..."
 nvm install --lts
 
-# Install Postman if not already installed
-if ! snap list | grep -q postman; then
-    echo "Installing Postman..."
-    sudo snap install postman
-else
-    echo "Postman already installed."
-fi
+source ~/.bashrc
+
+echo "Installing Postman..."
+sudo snap install postman
 
 # Install i3 utilities
 echo "Installing i3 utilities..."
@@ -44,5 +47,14 @@ apt install i3-wm
 
 # Install Visual Studio Code if not already installed
 snap install --classic code
+
+#enable lightdm
+systemctl enable lightdm
+
+#start lightdm
+systemctl start lightdm
+
+#clean unecesary packages
+apt clean
 
 exit
